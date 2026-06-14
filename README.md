@@ -1,17 +1,10 @@
-# 🐳 HW3 Docker Project
+# 🐳 Docker Mountains Project
 
-## 📌 Описание проекта
-
-Проект состоит из двух Docker контейнеров:
-
-* **generator** — генерирует CSV файл с данными о горах
-* **reporter** — создает HTML отчет на основе CSV файла
-
-Контейнеры взаимодействуют через общую папку `data`, подключенную с помощью Docker volume.
+Проект для генерации данных о горах и создания HTML-отчёта с использованием Docker.
 
 ---
 
-## 📂 Структура проекта
+# 📁 Структура проекта
 
 ```text
 HW3/
@@ -28,66 +21,38 @@ HW3/
 │   ├── Dockerfile
 │   └── report.py
 │
+├── local_data/
+│
 ├── run.sh
-├── README.md
-└── .gitignore
+└── README.md
 ```
 
+# 🏔 Генератор данных
 
+Генератор создаёт CSV-файл со случайными данными о горах.
 
-## 🚀 Команды проекта
+Поля:
 
-### Сборка контейнера генератора
+- id
+- mountain
+- country
+- height
+- difficulty
 
-```bash
-./run.sh build_generator
-```
+Пример данных:
 
-### Запуск генератора данных
-
-```bash
-./run.sh run_generator
-```
-
-После запуска создается файл:
-
-```text
-data/data.csv
+```csv
+1,Everest,Nepal,8848,hard
+2,Elbrus,Russia,5642,medium
 ```
 
 ---
 
-### Очистка папки data
+# 📄 HTML отчёт
 
-```bash
-./run.sh clear_data
-```
+Контейнер аналитика читает CSV-файл и создаёт HTML-таблицу.
 
----
-
-### Просмотр структуры проекта
-
-```bash
-./run.sh structure
-```
-
----
-
-## 📊 Генерация HTML отчета
-
-Сборка reporter контейнера:
-
-```bash
-docker build -t reporter-image ./reporter
-```
-
-Запуск reporter контейнера:
-
-```bash
-docker run --rm -v "$(pwd)/data:/app/data" reporter-image
-```
-
-После запуска создается файл:
+После запуска появляется файл:
 
 ```text
 data/report.html
@@ -95,24 +60,68 @@ data/report.html
 
 ---
 
-## 🌋 Пример данных
+# 🚀 Команды проекта
 
-| Mountain | Country | Height |
-| -------- | ------- | ------ |
-| Everest  | Nepal   | 8848   |
-| Elbrus   | Russia  | 5642   |
-| Denali   | USA     | 6190   |
+## Показать структуру проекта
+
+```bash
+./run.sh structure
+```
+
+## Собрать контейнер генератора
+
+```bash
+./run.sh build_generator
+```
+
+## Запустить генератор
+
+```bash
+./run.sh run_generator
+```
+
+## Собрать контейнер аналитика
+
+```bash
+./run.sh build_reporter
+```
+
+## Создать HTML отчёт
+
+```bash
+./run.sh run_reporter
+```
 
 ---
 
-## ✨ Результат работы
+# 🌐 Просмотр отчёта
 
-Проект автоматически:
+```bash
+open data/report.html
+```
 
-1. Генерирует CSV файл с данными
-2. Создает HTML таблицу
-3. Сохраняет результат в общую папку `data`
-4. Использует Docker volume для обмена данными между контейнерами
+---
+
+# 📦 Docker volumes
+
+В проекте используется volume:
+
+```text
+$(pwd)/data:/app/data
+```
+
+Это позволяет контейнерам работать с локальными файлами проекта.
+
+---
+
+# ✅ Результат работы
+
+Проект:
+
+- генерирует CSV-файл;
+- создаёт HTML-отчёт;
+- использует Docker-контейнеры;
+- управляется через `run.sh`.
 
 ---
 Орлова Анна Андреевна ББИ2510
