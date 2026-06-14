@@ -1,0 +1,6 @@
+data/*.csv
+data/*.html
+local_data/*.csv
+.DS_Store
+__pycache__/
+node_modules/
